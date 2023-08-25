@@ -1,0 +1,19 @@
+design:
+  version: 1.x
+  css:
+    theme:
+        css/font-awesome.min.css: {}
+        css/result.css: {}
+
+  js:
+    js/framework.js: {}
+    js/font-size.js: {}
+    js/easyResponsiveTabs.js: {}
+    js/cmf_design.js: {}
+    js/switcher.js: {}
+    
+
+
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

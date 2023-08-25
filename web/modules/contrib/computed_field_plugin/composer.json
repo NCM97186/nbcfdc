@@ -1,0 +1,14 @@
+{
+  "name": "drupal/computed_field_plugin",
+  "type": "drupal-module",
+  "description": "Provide a plugin to allow developers to create computed field via the Drupal Plugin API.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/computed_field_plugin",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/computed_field_plugin",
+    "source": "http://cgit.drupalcode.org/computed_field_plugin"
+  },
+  "require": {}
+}

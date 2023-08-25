@@ -1,0 +1,6 @@
+cmf_google_search.settings:
+  title: 'CMF Google Search Settings'
+  parent: cmf_content.admin
+  route_name: cmf_google_search.settings
+  description: 'Add details of the Google Custom Search Engine (CSE).'
+  weight: 11

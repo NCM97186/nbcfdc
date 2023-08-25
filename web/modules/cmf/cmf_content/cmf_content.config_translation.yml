@@ -1,0 +1,11 @@
+cmf_content.settings:
+  title: 'CMF Settings Form'
+  base_route_name: cmf_content.settings
+  names:
+    - cmf_content.settings
+    
+cmf_content.deletesection:
+  title: 'Delete Section Data'
+  base_route_name: cmf_content.deletesection
+  names:
+    - cmf_content.deletesection

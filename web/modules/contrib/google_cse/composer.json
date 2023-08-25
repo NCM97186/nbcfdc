@@ -1,0 +1,22 @@
+{
+  "name": "drupal/google_cse",
+  "description": "Use Google Custom Search to search your site and/or any other sites.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "homepage": "https://drupal.org/project/google_cse",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/google_cse?version=8.x",
+    "source": "https://git.drupalcode.org/project/google_cse"
+  },
+  "require": {
+    "drupal/core": "^8 || ^9 || ^10"
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9 || ^10"
+      }
+    }
+  }
+}

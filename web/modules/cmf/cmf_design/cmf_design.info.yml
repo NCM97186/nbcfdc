@@ -1,0 +1,9 @@
+name: CMF Design Structure
+description: This module is using for the header and footer section design.
+core: 8.x
+package: CMF
+dependencies:
+- node
+- block
+type: module
+core_version_requirement: ^8 || ^9

@@ -1,0 +1,7 @@
+views.filter.ip2long:
+  type: views.filter.numeric
+  label: 'IP Address Filter'
+
+views.filter_value.ip2long:
+  type: views.filter_value.numeric
+  label: 'IP Address Filter Value'

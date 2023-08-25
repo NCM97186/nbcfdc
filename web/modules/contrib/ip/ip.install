@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * IP address manager module install file.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ip_schema() {
+
+  $schema['ip_tracker'] = [
+    'description' => 'Stores IP addresses against uids.',
+    'fields' => [
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The User ID',
+      ],
+      'ip' => [
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
+        'description' => 'The User IP address',
+      ],
+      'visits' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'How many visits with this uid/ip combination',
+      ],
+      'first_visit' => [
+        'description' => 'A Unix timestamp indicating when this record was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'last_visit' => [
+        'description' => 'A Unix timestamp indicating when this record was updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['uid', 'ip'],
+  ];
+
+  $schema['ip_posts'] = [
+    'description' => 'Stores ips against nids/cids.',
+    'fields' => [
+      'type' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type.',
+      ],
+      'id' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The entity id',
+      ],
+      'ip' => [
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
+        'description' => 'The User IP address',
+      ],
+    ],
+    'primary key' => ['id', 'type'],
+  ];
+
+  return $schema;
+}
+

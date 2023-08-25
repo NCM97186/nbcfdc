@@ -1,0 +1,6 @@
+design:
+  version: 1.x
+  css:
+    theme:
+        css/easy_sitemap.css: {}
+       

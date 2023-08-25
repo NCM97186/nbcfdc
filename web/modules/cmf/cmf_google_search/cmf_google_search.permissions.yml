@@ -1,0 +1,8 @@
+administer site configuration:
+  title: 'Configure the CMF Google Search module'
+  
+administer google search:
+  title: Administer config settings
+
+access google search page:
+  title: Access the search page

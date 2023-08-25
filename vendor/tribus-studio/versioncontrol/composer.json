@@ -1,0 +1,20 @@
+{
+    "name": "tribus-studio/versioncontrol",
+    "type": "library",
+    "description": "PHP library that helps with deprecated classes and function calls in Drupal 8 and 9.",
+    "authors": [
+        {
+            "name": "Kayla Brault",
+            "email": "kayla@tribus.studio",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tribus\\VersionControl\\": "src/"
+        }
+    }
+}

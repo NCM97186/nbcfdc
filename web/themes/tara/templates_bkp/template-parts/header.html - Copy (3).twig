@@ -1,0 +1,67 @@
+<!-- Start: Header -->
+<header id="header" style="background-color:red;">
+  {% if page.header_top or all_icons_show %}
+    {% include '@tara/template-parts/header_top.html.twig' %}
+  {% endif %}
+  <div class="header">
+    <div class="">
+      <div class="header-container">
+        {% if page.site_branding %}
+          <div class="site-branding-region">
+            {{ page.site_branding }}
+          <p style="font-size:14px; margin-left:175px;">(A Govt. of India Undertaking, Ministry of Social Justice & Empowerment)</p>
+          </div>
+          	<div class="header-right clearfix">
+				<div class="right-content clearfix">				
+					<div class="float-element">
+						
+
+            <div class="col-md-12 logo" style="padding-top: 5px;     margin-right: 90px;">
+<a href="/" title="NBCFDC" class="logo resp">
+<img style="height:90px; padding-left: 0px;" src="{{ base_path ~ directory }}/images/leftnewsatya.jpg" height="100" alt="NBCFDC Logo">
+<h6 style="font-size:10px;" class="empowerment"><span style="padding-left:0px;" >Government Of India <sapn><br><span> Ministry of Social Justice &amp; Empowerment</span></h6></a>
+</div>
+						
+					
+					</div> 
+         
+				</div>
+			</div>
+          <!--/.site-branding -->
+        {% endif %} <!--/.end if for site_branding -->
+        {% if page.search_box or  page.primary_menu %}
+        </div>
+          <div class="header-right" style="background-color:#0f9ddf !important;">
+            <!-- Start: primary menu region -->
+            {% if page.primary_menu %}
+            <div class="mobile-menu">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </div><!-- /mobile-menu -->
+            <div class="primary-menu-wrapper">
+              <div class="menu-wrap">
+                <div class="close-mobile-menu">X</div>
+                {{ page.primary_menu }}
+              </div>
+            </div><!-- /primary-menu-wrapper -->
+            {% endif %}<!-- end if for page.primary_menu -->
+            {% if page.search_box %}
+              <div class="full-page-search">
+                <div class="search-icon">
+                  <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                </div> <!--/.search icon -->
+                <div class="search-box">
+                  <div class="search-box-close"></div>
+                  <div class="search-box-content">
+                    {{ page.search_box }}
+                  </div>
+                  <div class="search-box-close"></div>
+                </div><!--/.search-box -->
+              </div> <!--/.full-page-search -->
+            {% endif %} <!-- end if for page.search_box -->
+          </div> <!--/.header-right -->
+        {% endif %}<!-- end if for page.search_box or  page.primary_menu -->
+      </div> <!--/.header-container -->
+    </div> <!--/.container -->
+  </div><!-- /.header -->
+</header>
+<!-- End: Header -->

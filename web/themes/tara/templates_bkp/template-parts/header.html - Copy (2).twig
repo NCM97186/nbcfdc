@@ -1,0 +1,71 @@
+<!-- Start: Header -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<header id="header">
+  {% if page.header_top or all_icons_show %}
+    {% include '@tara/template-parts/header_top.html.twig' %}
+  {% endif %}
+  <div class="header">
+    <div class="container">
+      <div class="header-container">
+      <div class="container-fluid" id="head">
+<div class="container container12">
+<div class="row" style="padding:8px">
+<div class="col-md-3 logo">
+<a href="/" title="NBCFDC" class="logo resp">
+<center><span style="height: 90px!important;"><img style="" src="{{ base_path ~ directory }}/images/NBCFDC_logo.png" height="50"  alt="NBCFDC Logo"><span></center><h6 style="font-size:10px;text-align:center;margin-top:10px" class="empowerment"><span style="color: #0295de; font-weight: bold;">Government Of India Ministry of <br> Social Justice &amp; Empowerment</span></h6></a>
+</div>
+<div class="col-md-7 text-center logo"><center style="margin-top:3%"><h3 style="color: #0295de;">NATIONAL BACKWARD CLASSES FINANCE<br>AND DEVELOPMENT CORPORATION</h3>
+<h6 style="font-size:12px!important" class="empowerment"><span style="color: #0295de;font-weight: bold;
+">(A Govt. of India Undertaking, Ministry of Social Justice &amp; Empowerment)<sapn></h6>
+<h6 style="font-size:12px!important" class="empowerment"><span style="color: #0295de;">(CIN : U74899DL1992NPL047146 &nbsp;&nbsp;&nbsp;GSTIN : 07AABCN8953B1ZI)</span></h6>
+</center>
+
+</div>
+<div class="col-md-2 d-none d-sm-block">
+<img  style="height:110px!important;" src="{{ base_path ~ directory }}/images/leftnewsatya.jpg">
+</div>
+</div>
+</div>
+</div>
+        {% if page.site_branding %}
+         
+          <!--/.site-branding -->
+        {% endif %} <!--/.end if for site_branding -->
+        {% if page.search_box or  page.primary_menu %}
+        </div>
+          <div class="header-right">
+            <!-- Start: primary menu region -->
+            {% if page.primary_menu %}
+            <div class="mobile-menu">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </div><!-- /mobile-menu -->
+            <div class="primary-menu-wrapper">
+              <div class="menu-wrap">
+                <div class="close-mobile-menu">X</div>
+                {{ page.primary_menu }}
+              </div>
+            </div><!-- /primary-menu-wrapper -->
+            {% endif %}<!-- end if for page.primary_menu -->
+            {% if page.search_box %}
+              <div class="full-page-search">
+                <div class="search-icon">
+                  <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                </div> <!--/.search icon -->
+                <div class="search-box">
+                  <div class="search-box-close"></div>
+                  <div class="search-box-content">
+                    {{ page.search_box }}
+                  </div>
+                  <div class="search-box-close"></div>
+                </div><!--/.search-box -->
+              </div> <!--/.full-page-search -->
+            {% endif %} <!-- end if for page.search_box -->
+          </div> <!--/.header-right -->
+        {% endif %}<!-- end if for page.search_box or  page.primary_menu -->
+      </div> <!--/.header-container -->
+    </div> <!--/.container -->
+  </div><!-- /.header -->
+</header>
+<!-- End: Header -->

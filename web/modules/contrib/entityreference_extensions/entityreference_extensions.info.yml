@@ -1,0 +1,10 @@
+name: 'Entity Reference Extensions'
+type: module
+description: 'Extending the features of Entity Reference fields in some ways'
+core_version_requirement: ^8 || ^9 || ^10
+package: Fields
+
+# Information added by Drupal.org packaging script on 2022-10-28
+version: '8.x-1.4'
+project: 'entityreference_extensions'
+datestamp: 1666960750

@@ -1,0 +1,25 @@
+<?php
+/*
+ * @file
+ * code for CMF Content module
+*/
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function cmf_google_search_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.cmf_google_search':
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('CMF Google Search is an embedded search engine that can be used to search website keyword on Google CSE. Read more at <a href="http://www.google.com/cse/." target="blank">http://www.google.com/cse/</a>.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('After installing this module, activate CMF Google Search at <a href="/admin/config/cmf-module/cmf-google-search" target="blank">admin/config/cmf-module/cmf-google-search</a>, optionally setting it as the default search module, and configure it by entering Google\'s unique ID for your CSE. Once you have granted permission for one or more roles to search the CMF Google Search, the search page can be found at search/google, and a separate self-contained search block can also be enabled.') . '</p>';
+      $output .= '<b>' . t('Blocks') . '</b>';
+      $output .= '<p>' . t('The include CMF Google Search block can optionally be enabled at admin/structure/block. The "CMF Google Search" block provides a search box and also displays the search results. After entering search terms, the user  will be returned to the same page (via GET request) and the results will be displayed.  Do not allow this Google CSE block to appear on the search/google page, as the search results will fail to display.') . '</p>';
+
+      return $output;
+  }
+}

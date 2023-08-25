@@ -1,0 +1,49 @@
+<?php
+/*
+ * @file
+ * code for CMF Content module
+*/
+use Drupal\Core\Routing\RouteMatchInterface;
+/**
+ * Implements hook_help().
+ */
+ /*
+function cmf_content_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.cmf_content':
+      return t('<p>CMF Custom Module that provide the extra fuctionality to the CMF Theme</p>');
+  }
+}
+function msde_preprocess_page(array &$variables) {
+	$settings = \Drupal::config('cmf_content.settings');
+	// Header Content 
+	$variables['header_site_name'] = $settings->get('header_site_name');
+	$variables['header_site_slogan'] = $settings->get('header_site_slogan');
+	$variables['header_goi_text'] = $settings->get('header_goi_text');
+	$variables['header_goi_text_url'] = $settings->get('header_goi_text_url');
+	$variables['header_sitename'] = $settings->get('header_sitename');
+	$variables['header_sitename_url'] = $settings->get('header_sitename_url');
+	// Search Site Links 
+	$variables['search_site_name'] = $settings->get('search_site_name');
+	// Footer Content 
+	$variables['footer_sitename'] = $settings->get('footer_sitename');
+	// Social Links  
+	$variables['facebook_url'] = $settings->get('facebook_url');
+	$variables['twitter_url'] = $settings->get('twitter_url');
+	$variables['youtube_url'] = $settings->get('youtube_url');
+	// logo needs to be placed within specified folder
+	//$site_config = \Drupal::config('system.site');
+	$variables['logopath'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
+}
+*/
+/**
+ * Implements hook_node_prepare().
+ */
+ /*
+function msde_content_node_prepare($node) {
+  if (empty($node->nid) && !isset($node->path['pathauto']) && in_array($node->type, array('page'))) {
+    // Default the Pathauto checkbox to be unchecked for new page nodes.
+    $node->path['pathauto'] = FALSE;
+  }
+}
+*/

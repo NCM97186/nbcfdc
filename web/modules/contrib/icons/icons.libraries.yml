@@ -1,0 +1,9 @@
+icon_picker:
+  js:
+    js/IconPicker.js: {}
+  css:
+    theme:
+      css/icons-style.css: {}
+
+  dependencies:
+    - core/jquery

@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Attached the custom library().
+ */
+function easy_sitemap_page_attachments(array &$attachments) {
+	$attachments['#attached']['library'][] = 'easy_sitemap/design';
+}

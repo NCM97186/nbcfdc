@@ -1,0 +1,17 @@
+easy_sitemap.settings:
+  path: '/admin/config/cmf-module/sitemap'
+  defaults:
+    _form:  '\Drupal\easy_sitemap\Form\EasySitemapForm'
+    _title: 'Sitemap Settings'
+  requirements:
+    _permission: 'administer site configuration'
+    
+easy_sitemap.content:
+  path: '/sitemap'
+  defaults:
+    _controller: 'Drupal\easy_sitemap\Controller\EasySitemapController::content'
+    _title: 'Sitemap'
+    name: 'there'
+  requirements:
+    _permission: 'access content'
+

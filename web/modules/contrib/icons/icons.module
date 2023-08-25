@@ -1,0 +1,223 @@
+<?php
+
+/**
+ * @file
+ * Contains icons.module..
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Menu\MenuLinkInterface;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\icons\Entity\IconSetInterface;
+
+/**
+ * Implements hook_help().
+ */
+function icons_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the icons module.
+    case 'help.page.icons':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Icons module provides a "base" configuration API for icons. It defines a plugin manager for icons so that developers can build their own plugin to provide icons on a generic way in drupal. Default this module includes sub modules Icomoon and Fontello. But it is pretty easy to create your own.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function icons_theme() {
+  return [
+    'icon' => [
+      'variables' => [
+        'icon_set' => NULL,
+        'attributes' => [],
+      ],
+      'template' => 'icon',
+    ],
+    'icon_select' => [
+      'render element' => 'element',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function icons_theme_suggestions_icon(array $variables) {
+  $suggestions = [];
+
+  if ($variables['icon_set'] instanceof IconSetInterface) {
+    $suggestions[] = 'icon__' . $variables['icon_set']->getPluginId();
+    $suggestions[] = 'icon__' . $variables['icon_set']->id();
+  }
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds the icons prefix and suffix icon select widget to the form. This will
+ * enable the configuration of an icon in the views menu link from the view
+ * display.
+ */
+function icons_form_views_ui_edit_display_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  try {
+    $options = Drupal::service('icons.manager')->getIconOptions();
+  } catch (InvalidPluginDefinitionException $e) {
+    return;
+  } catch (PluginNotFoundException $e) {
+    return;
+  }
+
+  /** @var \Drupal\views_ui\ViewUI $view */
+  $view = $form_state->get('view');
+  $display = $view->get('display');
+  $view_display_id = $form_state->get('display_id');
+
+  // Details fieldset for icon fields.
+  $form['options']['menu']['icons'] = [
+    '#type' => 'details',
+    '#title' => t('Icons'),
+    '#tree' => TRUE,
+  ];
+
+  // This is needed to make sure the icons container is inside the options menu
+  // containers. Because for some reason they use the #prefix and #suffix of 2
+  // different elements to markup fields together within a diff.
+  if (isset($form['options']['menu']['context']['#weight'])) {
+    $form['options']['menu']['icons']['#weight'] = $form['options']['menu']['context']['#weight'] - 1;
+  }
+  elseif (isset($form['options']['menu']['context']['#suffix'])) {
+    unset($form['options']['menu']['context']['#suffix']);
+    $form['options']['menu']['icons']['#suffix'] = '</div>';
+  }
+
+  $default_value = NULL;
+  if (isset($display[$view_display_id]['display_options']['menu']['icons']['icon_prefix'])) {
+    $default_value = $display[$view_display_id]['display_options']['menu']['icons']['icon_prefix'];
+  }
+
+  // Prefix field to show an icon at the begin of the text of an link.
+  $form['options']['menu']['icons']['icon_prefix'] = [
+    '#type' => 'icon_select',
+    '#options' => $options,
+    '#default_value' => !empty($default_value) ? $default_value : NULL,
+  ];
+
+  $default_value = NULL;
+  if (isset($display[$view_display_id]['display_options']['menu']['icons']['icon_suffix'])) {
+    $default_value = $display[$view_display_id]['display_options']['menu']['icons']['icon_suffix'];
+  }
+
+  // Suffix field to show an icon at the end of the text of an link.
+  $form['options']['menu']['icons']['icon_suffix'] = [
+    '#type' => 'icon_select',
+    '#options' => $options,
+    '#default_value' => !empty($default_value) ? $default_value : NULL,
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds the icons prefix and suffix icon select widget to the form. This will
+ * enable the configuration of an icon in the menu link content from the entity
+ * form.
+ */
+function icons_form_menu_link_content_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $menu_link_options = $menu_link->link->first()->options ?: [];
+  $menu_link_icons = $menu_link_options['icons'] ?? [];
+
+  $form['options']['icons'] = [
+    '#type' => 'details',
+    '#title' => t('Icons'),
+    '#weight' => -2,
+    '#tree' => TRUE,
+    '#open' => FALSE,
+  ];
+
+  try {
+    $options = Drupal::service('icons.manager')->getIconOptions();
+  } catch (InvalidPluginDefinitionException $e) {
+    return;
+  } catch (PluginNotFoundException $e) {
+    return;
+  }
+
+  // Prefix field to show an icon at the begin of the text of an link.
+  $form['options']['icons']['icon_prefix'] = [
+    '#title' => t('Prefix'),
+    '#type' => 'icon_select',
+    '#options' => $options,
+    '#default_value' => $menu_link_icons['icon_prefix'] ?? '',
+  ];
+
+  // Suffix field to show an icon at the end of the text of an link.
+  $form['options']['icons']['icon_suffix'] = [
+    '#title' => t('Suffix'),
+    '#type' => 'icon_select',
+    '#options' => $options,
+    '#default_value' => $menu_link_icons['icon_suffix'] ?? '',
+  ];
+
+  $form['actions']['submit']['#submit'][] = 'icons_menu_link_content_form_submit';
+}
+
+/**
+ * Submit function for menu add / edit form to save icons.
+ *
+ * @param array $form
+ *   Form array with elements and attributes of the menu link content form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state of the menu link content form.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function icons_menu_link_content_form_submit(array $form, FormStateInterface $form_state) {
+  /** @var \Drupal\menu_link_content\MenuLinkContentInterface $menu_link */
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $options = [
+    'icons' => $form_state->getValue('icons'),
+  ];
+
+  /** @var \Drupal\link\LinkItemInterface $menuLinkItem */
+  $menuLinkItem = $menu_link->get('link')->first();
+  $menu_link_options = $menuLinkItem->get('options')->getValue();
+  $menuLinkItem->set('options', array_merge($menu_link_options, $options));
+  $menu_link->save();
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function icons_preprocess_menu(array &$variables) {
+  /** @var \Drupal\icons\IconsManager $iconsManager */
+  $iconsManager = Drupal::service('icons.manager');
+  $iconsManager->processMenuItems($variables['items']);
+}
+
+/**
+ * Prepares variables for icon select element templates.
+ *
+ * Default template: icon-select.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ */
+function template_preprocess_icon_select(array &$variables) {
+  $element = $variables['element'];
+  $variables['icon_picker'] = $element['#icon_picker'];
+  $variables['icon_select'] = $element['#children'];
+}

@@ -1,0 +1,9 @@
+.block-languages-dropdown {
+  width: 100%;
+  display: block;
+  float: left;
+}
+
+.block-languages-dropdown ul:not(.contextual-links) li {
+  padding: 10px 0;
+}

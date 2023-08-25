@@ -1,0 +1,7 @@
+services:
+  plugin.manager.icon_library:
+    class: Drupal\icons\IconLibraryPluginManager
+    parent: default_plugin_manager
+  icons.manager:
+    class: Drupal\icons\IconsManager
+    arguments: [ '@entity_type.manager', '@renderer' ]

@@ -1,0 +1,10 @@
+name = CMF Utility
+package = CMF
+description = Allows Developer to define custom Code.
+
+version = "7.x-1.1"
+core = "7.x"
+project = "cmf_utility"
+datestamp = "1353872502"
+required = TRUE
+tapas.cse.talukder@gmail.com

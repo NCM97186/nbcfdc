@@ -1,0 +1,7 @@
+name: 'CMF Google Search'
+type: module
+description: 'Provides basic integration with Google Custom Search Engine (CSE).'
+core: 8.x
+version: VERSION
+package: CMF
+core_version_requirement: ^8 || ^9

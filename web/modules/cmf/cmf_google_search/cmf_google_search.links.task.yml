@@ -1,0 +1,4 @@
+cmf_google_search.settings:
+  route_name: cmf_google_search.settings
+  title: CMF Google Search Settings
+  base_route: cmf_google_search.settings

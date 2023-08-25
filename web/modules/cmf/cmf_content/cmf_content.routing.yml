@@ -1,0 +1,22 @@
+cmf_content.admin:
+  path: '/admin/config/cmf-module'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'administer site configuration'
+
+cmf_content.settings:
+  path: '/admin/config/cmf-module/cmf-site-settings'
+  defaults:
+    _form: '\Drupal\cmf_content\Form\CmfSettingsForm'
+    _title: 'CMF Settings Form'
+  requirements:
+    _permission: 'administer site configuration'
+ 
+cmf_content.deletesection:
+  path: '/admin/config/cmf-module/cmf-site-deletesection'
+  defaults:
+    _form: '\Drupal\cmf_content\Form\CmfSectionDeletion'
+    _title: 'Delete Section Data'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,63 @@
+<!-- Start: Footer -->
+<footer id="footer">
+  <div class="footer">
+    <div class="container">
+      {% if page.footer_top %}
+        <section class="footer-top">
+          {{ page.footer_top }}
+        </section>
+      {% endif %}<!-- /footer-top -->
+      {% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
+       <section class="footer-blocks">
+       
+        {% if page.footer_first %}
+          <div class="footer-block">
+            {{ page.footer_first }}
+          </div>
+          <p>jitu</p>
+        {% endif %}<!--/footer-first -->
+        {% if page.footer_second %}
+          <div class="footer-block">
+            {{ page.footer_second }}
+          </div>
+        {% endif %}<!--/footer-second -->
+        {% if page.footer_third %}
+          <div class="footer-block">
+            {{ page.footer_third }}
+          </div>
+        {% endif %}<!--/footer-third -->
+        {% if page.footer_fourth %}
+          <div class="footer-block">
+            {{ page.footer_fourth }}
+          </div>
+        {% endif %}<!--/footer-fourth -->
+       </section> <!--/footer-blocks -->
+     {% endif %} {# end if for footer one, two, three, four blocks #}
+     {% if copyright_text or all_icons_show %}
+      <section class="footer-bottom-middle">
+        
+        <!-- end if for copyright -->
+        {% if all_icons_show %}
+          <div class="footer-bottom-middle-right justify-content-between d-flex w-100" style="font-size:14px;">
+            {% include '@tara/template-parts/social-icons-footer.html.twig' %}
+          </div>
+        {% endif %} <!-- end if for all_icons_show -->
+      </section><!-- /footer-bottom-middle -->
+     {% endif %} <!-- end condition if copyright or social icons -->
+     {% if page.footer_bottom %}
+       <div class="footer-bottom">
+         {{ page.footer_bottom }}
+       </div> <!--/.footer-bottom -->
+     {% endif %} <!-- end condition for footer_bottom -->
+    </div><!-- /.container -->
+  </div> 
+  <div class="text-center" style="background: #000; font-size:14px; padding: 10px;"> &copy; {{ "now"|date("Y") }} {{ site_name }}, All rights reserved.</div>
+  <!--/.footer -->
+</footer>
+{% if scrolltotop_on %}
+<div class="scrolltop"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+{% endif %}
+<!-- End: Footer -->
+{% if bootstrapicons %}
+  {{ attach_library('tara/bootstrap-icons') }}
+{% endif %}

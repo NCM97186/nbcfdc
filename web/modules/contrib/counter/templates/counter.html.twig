@@ -1,0 +1,53 @@
+{# counter/templates/counter.html.twig #}
+<div id="counter">
+  <ul>
+    {% if site_counter is not null %}
+    <li>{{ 'Site Counter:'|t }} <strong>{{ site_counter }}</strong></li>
+    {% endif %}
+    {% if unique_visitor is not null %}
+    <li>{{ 'Unique Visitor:'|t }} <strong>{{ unique_visitor }}</strong></li>
+    {% endif %}
+    {% if registered_user is not null %}
+    <li>{{ 'Registered Users:'|t }} <strong>{{ registered_user }}</strong></li>
+    {% endif %}
+    {% if unregistered_user is not null %}
+    <li>{{ 'Unregistered Users:'|t }} <strong>{{ unregistered_user }}</strong></li>
+    {% endif %}
+    {% if blocked_user is not null %}
+    <li>{{ 'Blocked Users:'|t }} <strong>{{ blocked_user }}</strong></li>
+    {% endif %}
+    {% if published_nodes is not null %}
+    <li>{{ 'Published Nodes:'|t }} <strong>{{ published_nodes }}</strong></li>
+    {% endif %}
+    {% if unpublished_nodes is not null %}
+    <li>{{ 'Unublished Nodes:'|t }} <strong>{{ unpublished_nodes }}</strong></li>
+    {% endif %}
+    {% if server_ip is not null %}
+    <li>{{ 'Server IP Address:'|t }} <strong>{{ server_ip }}</strong></li>
+    {% endif %}
+    {% if ip is not null %}
+    <li>{{ 'IP Address:'|t }} <strong>{{ ip }}</strong></li>
+    {% endif %}
+    {% if counter_since is not null %}
+    <li>{{ 'Counter Since:'|t }} <strong>{{ counter_since }}</strong></li>
+    {% endif %}
+    {% if (statistic_today is not null) or (statistic_week is not null) or (statistic_month is not null) or (statistic_year is not null) %}
+      <li> {{ 'Visitors'|t }}
+        <ul>
+          {% if statistic_today is not null %}
+            <li>{{ 'Today:'|t }} <strong>{{ statistic_today }}</strong></li>
+          {% endif %}
+          {% if statistic_week is not null %}
+            <li>{{ 'This week:'|t }} <strong>{{ statistic_week }}</strong></li>
+          {% endif %}
+          {% if statistic_month is not null %}
+            <li>{{ 'This month:'|t }} <strong>{{ statistic_month }}</strong></li>
+          {% endif %}
+          {% if statistic_year is not null %}
+            <li>{{ 'This year:'|t }} <strong>{{ statistic_year }}</strong></li>
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+  </ul>
+<div>

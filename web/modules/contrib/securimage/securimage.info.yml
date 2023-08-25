@@ -1,0 +1,14 @@
+name: 'Securimage PHP CAPTCHA'
+description: 'Provides an image based CAPTCHA using the securimage library.'
+package: 'Spam control'
+dependencies:
+  - 'captcha:captcha'
+  - 'vendor_stream_wrapper:vendor_stream_wrapper'
+core: 8.x
+core_version_requirement: "^8 || ^9"
+type: module
+
+# Information added by Drupal.org packaging script on 2022-02-18
+version: '9.0.0'
+project: 'securimage'
+datestamp: 1645199200

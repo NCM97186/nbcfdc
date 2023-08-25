@@ -1,0 +1,9 @@
+'administer visitors':
+  title: 'Administer visitors'
+  description: 'Allows to configure Visitors module.'
+  restrict access: true
+  warning: 'Warning: Give to trusted roles only; this permission has security implications.'
+
+'access visitors':
+  title: 'Access visitors'
+  description: 'Allows to get access to visitors info.'

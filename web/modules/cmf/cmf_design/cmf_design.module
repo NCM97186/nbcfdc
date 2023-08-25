@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Attached the custom library().
+ */
+function cmf_design_page_attachments(array &$attachments) {
+	$attachments['#attached']['library'][] = 'cmf_design/design';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cmf_design_theme() {
+  return array(
+   'cmf_design' => array(
+            'variables' => array('title' => NULL, 'description' => NULL),
+            'template' => 'block--cmf-design',
+        ),
+  );
+}

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Bootstrap Languages module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function languages_dropdown_requirements($phase) {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  $library = \Drupal::service('library.discovery')->getLibraryByName(
+    'languages_dropdown',
+    'bootstrap-lang'
+  );
+  $library_exists = file_exists(DRUPAL_ROOT . '/' . $library['css'][0]['data']);
+  $lib = 'https://github.com/usrz/bootstrap-languages/archive/master.zip';
+
+  return [
+    'bootstrap_languages_library' => [
+      'title' => t('Bootstrap Languages'),
+      'value' => $library_exists ? t('Installed') : t('Not installed'),
+      'description' => $library_exists ?
+      '' :
+      t(
+        'The Bootstrap Languages library needs to be
+        <a href="@url">downloaded</a> and extracted into the
+        /libraries/bootstrap-languages folder in your Drupal installation
+        directory.',
+        [
+          '@url' => $lib,
+        ]
+      ),
+      'severity' => $library_exists ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    ],
+  ];
+}

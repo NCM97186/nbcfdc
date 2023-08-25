@@ -1,0 +1,78 @@
+entityreference_extensions.settings:
+  type: config_object
+  mapping:
+    unlimitedcounter:
+      type: integer
+      label: 'Number of maximum items to show in delta dialog for unlimited cardinality'
+
+entityreference_extensions_limit:
+  type: mapping
+  label: 'Limit Elements'
+  mapping:
+    number:
+      type: string
+      label: 'Number of items to show'
+    offset:
+      type: integer
+      label: 'offset of items to show'
+    reverse:
+      type: boolean
+      label: 'Reverse the order of limiting'
+    limit_before_sort:
+      type: boolean
+      label: 'when to apply limiting'
+
+entityreference_extensions_sort:
+  type: mapping
+  label: 'Sort'
+  mapping:
+    asc:
+      type: boolean
+      label: 'ASC'
+    field:
+      type: string
+      label: 'Field'
+
+entityreference_extensions_display:
+  type: mapping
+  label: 'Display entities different'
+  mapping:
+    enable:
+      type: boolean
+      label: Display some entities in different view mode
+    view_mode:
+      type: string
+      label: 'View mode'
+    number:
+      type: integer
+      label: 'Number of entities to display differently'
+
+
+field.formatter.settings.entity_reference_entity_view_delta:
+  type: field.formatter.settings.entity_reference_entity_view
+  label: 'Entity reference entity RENDERED display formatter settings'
+  mapping:
+    limit:
+      type: entityreference_extensions_limit
+    sort:
+      type: entityreference_extensions_sort
+    display:
+      type: entityreference_extensions_display
+
+field.formatter.settings.entity_reference_entity_id_delta:
+  type: field.formatter.settings.entity_reference_entity_id
+  label: 'Entity reference entity ID display formatter settings'
+  mapping:
+    limit:
+      type: entityreference_extensions_limit
+    sort:
+      type: entityreference_extensions_sort
+
+field.formatter.settings.entity_reference_label_delta:
+  type: field.formatter.settings.entity_reference_entity_label
+  label: 'Entity reference entity LABEL display formatter settings'
+  mapping:
+    limit:
+      type: entityreference_extensions_limit
+    sort:
+      type: entityreference_extensions_sort

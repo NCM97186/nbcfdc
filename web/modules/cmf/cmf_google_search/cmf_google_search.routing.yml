@@ -1,0 +1,22 @@
+cmf_google_search.admin:
+  path: '/admin/config/cmf-module'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'administer site configuration'
+
+cmf_google_search.settings:
+  path: '/admin/config/cmf-module/cmf-google-search'
+  defaults:
+    _form: '\Drupal\cmf_google_search\Form\SettingsForm'
+    _title: 'CMF Google Search Settings'
+  requirements:
+    _permission: 'administer google search'
+
+cmf_google_search.search_page:
+  path: '/search'
+  defaults:
+    _controller: '\Drupal\cmf_google_search\Controller\SearchPage::displaySearchResults'
+    _title: 'Search results'
+  requirements:
+    _permission: 'access google search page'

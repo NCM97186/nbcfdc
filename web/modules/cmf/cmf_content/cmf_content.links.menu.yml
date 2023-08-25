@@ -1,0 +1,20 @@
+cmf_content.admin:
+    title: 'CMF Module'
+    parent: system.admin_config
+    route_name: cmf_content.admin
+    weight: -100
+
+cmf_content.settings:
+    title: 'CMF Site Settings'
+    parent: cmf_content.admin
+    route_name: cmf_content.settings
+    description: 'Add/Edit/Delete Content for header, footer and social links.'
+    weight: 10
+    
+cmf_content.deletesection:
+    title: 'Delete Section Data'
+    parent: cmf_content.admin
+    route_name: cmf_content.deletesection
+    description: 'Delete Section Data.'
+    weight: 20    
+

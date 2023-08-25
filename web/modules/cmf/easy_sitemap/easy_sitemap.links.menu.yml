@@ -1,0 +1,13 @@
+easy_sitemap.demo:
+	title: 'Easy Sitemap'
+	description: 'Easy Sitemap'
+	parent: main
+	menu_name: main
+	route_name: easy_sitemap.content
+    
+easy_sitemap.settings:
+	title: 'Sitemap settings.'    
+	description: 'Sitemap settings.'
+	parent: cmf-module
+	menu_name:admin    
+	route_name: easy_sitemap.settings

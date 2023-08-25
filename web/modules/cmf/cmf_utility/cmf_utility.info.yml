@@ -1,0 +1,6 @@
+name: 'CMF Utility'
+package: CMF
+description: 'Allows Developer to define custom Code.'
+core: 8.x
+type: module
+core_version_requirement: ^8 || ^9

@@ -1,0 +1,6 @@
+simple_metakey.settings:
+    title: 'Simple Metakey words settings.'
+    parent: cmf_content.admin
+    route_name: simple_metakey.settings
+    description: 'Add the key words into header section of your website.'
+    weight: 10

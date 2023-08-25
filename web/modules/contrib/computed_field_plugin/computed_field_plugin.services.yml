@@ -1,0 +1,4 @@
+services:
+  plugin.manager.computed_field_plugin:
+    class: Drupal\computed_field_plugin\Plugin\ComputedFieldManager
+    parent: default_plugin_manager

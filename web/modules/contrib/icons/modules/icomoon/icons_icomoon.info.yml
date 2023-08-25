@@ -1,0 +1,16 @@
+name: Icons Icomoon
+type: module
+description: Icons Icomoon Library Module
+core: 8.x
+core_version_requirement: ^8 || ^9
+
+package: Icons
+dependencies:
+  - icons
+libraries:
+  - icons_icomoon
+
+# Information added by Drupal.org packaging script on 2022-08-05
+version: '2.0.2'
+project: 'icons'
+datestamp: 1659689600

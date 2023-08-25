@@ -1,0 +1,671 @@
+<?php
+/************Webform Dropdown Hook***************/
+
+function cmf_utility_webform_select_options_info() {
+	$items = array();
+	$items['whos_who'] = array(
+			'title' => t('Department / whos who'),
+			'options callback' => 'form_example_options_whos_who'
+	);
+	$items['feedback_topic'] = array(
+			'title' => t('Feedback Topic'),
+			'options callback' => 'form_example_options_topic'
+	);
+	return $items;
+}
+
+function form_example_options_topic(){
+	$options = array();
+	
+	$tree = \Drupal::entityManager()->getStorage("taxonomy_term")->loadTree(15);
+	foreach($tree as $category) {
+	//print_r($category); die;
+		$options[$category->tid] = $category->name;
+	}
+return $options;
+}
+function form_example_options_whos_who() {
+	$options = array();
+	$sql = \Drupal::database()->query("SELECT nid, title FROM {node} WHERE type = :typo AND status <> 0 ORDER BY title ASC", array(":typo" => "whos_who"));
+	foreach($sql as $whos_who) {
+	//print_r($whos_who); die;
+		$options[$whos_who->nid] = $whos_who->title;
+	}
+return $options;
+}
+
+
+
+
+
+/****************
+** webform submit hook to send mail to category email address
+*******************/
+function cmf_utility_webform_submission_insert($node, $submission) {
+	//print_r($submission);  die;
+	$nidsArray = array(13);
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// if(variable_get('feedback_form_nid')){
+// 		$nids = variable_get('feedback_form_nid');
+// 		$nidsArray = explode(",",$nids);
+// 	}
+
+	if(in_array($submission->nid,$nidsArray)) {	
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// variable_set('mail_system', array('default-system' => 'ExampleMailSystem'));
+
+	$term = $submission->data[4]['value'][0];
+	$get_email = \Drupal::entityManager()->getStorage("taxonomy_term")->load($term);
+
+	$to = $get_email->field_email_feedback['und'];
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// $email_from = variable_get('site_mail', '');
+
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// $site_name = variable_get('site_name');
+
+
+	$feedback = '<html>
+					<head>
+					  <title>'.$site_name.' Feedback</title>
+					</head>
+					<body>
+						<p>'.$site_name.' Feedback for the '.$get_email->name.'</p>
+						<table>
+							<tr>
+							  <th style="width: 200px; text-align: left;">Name :</th><td> '.$submission->data[1]['value'][0].' </td>
+							</tr>
+							<tr>
+							  <th style="width: 200px; text-align: left;">Email Address :</th><td> '.$submission->data[2]['value'][0].' </td>
+							</tr>
+							<tr>
+							  <th style="width: 200px; text-align: left;">Feedback :</th><td> '.$submission->data[3]['value'][0].' </td>
+							</tr>
+						</table>
+					</body>
+				</html>';
+	$params = array(
+           'body' => $feedback,
+           'subject' => $site_name.' Feedback',
+           'headers'=>'simple',
+     );
+	 
+	foreach($to as $tos) {
+		
+
+		$sent = drupal_mail('myMessageName', 'feedback_msg', $tos['email'], language_default(), $params, $email_from, TRUE);
+	}
+	
+	 
+	if($sent){
+		$acknowledgement_to =  $submission->data[2]['value'][0];
+		$feedback = '<html>
+					<head>
+					  <title>Feedback Acknowledgement</title>
+					</head>
+					<body>
+						<h3>Dear '.$submission->data[1]['value'][0].'</h3>
+						<p> Thank you for writing to us on '.date("m  d"). ',' .date('Y').', we appreciate your valuable feedback and your perspective.</br> Your feedback will be dealt by our Web Information manager and you will receive a response shortly.</p>
+						<p>Regards<br />'.$site_name.'</p>
+					</body>
+				</html>';
+		$params = array(
+			   'body' => $feedback,
+			   'subject' => "Feedback Acknowledgement",
+			   'headers'=>'simple',
+		 );
+		$acknowledgement = drupal_mail('myMessageName', 'acknowledgement_msg', $acknowledgement_to, language_default(), $params, "no-reply@nic.in", TRUE);
+	}
+  }	
+}
+
+/*
+ *	drupal mail looks for a function that matches the first parameter _ mail to build the message
+ */	
+function myMessageName_mail($key, &$message, $params) {
+	$language = $message['language'];
+	//print_r($message); die;
+	switch ($key) {
+		case 'feedback_msg':				
+			$message['subject']=t($params['subject']);
+			$message['body'][]=$params['body'];
+			$message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+		break;
+		case 'acknowledgement_msg':				
+			$message['subject']=t("Feedback Acknowledgement");
+			$message['body'][]=$params['body'];
+			$message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+		break;
+    }
+}
+
+
+
+/**
+ * @FIXME
+ * hook_block_info is gone in Drupal 8.
+ *
+ * It has been left here by the Drupal Module Upgrader so that you can move its
+ * logic into the appropriate block plugins, which should be in the
+ * src/Plugin/Block directory. Once all logic is moved into the plugins, delete
+ * this hook.
+ *
+ * @see https://www.drupal.org/node/1880620
+ */
+
+function cmf_utility_block_info() {
+  $blocks = array();
+  /*$blocks['content_taxonomy'] = array(
+    'info' => t('Content Data of the Taxonomy'),
+  );
+  $blocks['left_menu_siblings'] = array(
+    'info' => t('Left Side Menu By First Lavel Taxonomy'),
+  );
+  $blocks['content_taxonomy_category'] = array(
+    'info' => t('Content section category'),
+  );
+  */
+   $blocks['photo_left_menu'] = array(
+    'info' => t('Photo Year Menu'),
+  );
+  $blocks['photo_album_left_menu'] = array(
+    'info' => t('Content section category'),
+  );
+  return $blocks;
+}
+/**
+ * @FIXME
+ * hook_block_view is gone in Drupal 8.
+ *
+ * It has been left here by the Drupal Module Upgrader so that you can move its
+ * logic into the appropriate block plugins, which should be in the
+ * src/Plugin/Block directory. Once all logic is moved into the plugins, delete
+ * this hook.
+ *
+ * @see https://www.drupal.org/node/1880620
+ */
+
+function cmf_utility_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'content_taxonomy':
+      $block['subject'] = '';
+      $block['content'] = _content_data_by_taxonomy();
+    break;
+	case 'left_menu_siblings':
+      $block['subject'] = '';
+      $block['content'] = _leftside_menu_by_siblings_taxonomy();
+    break;
+	case 'content_taxonomy_category':
+      $block['subject'] = '';
+      $block['content'] = _content_taxonomy_category_list();
+    break;
+	case 'photo_album_left_menu':
+      $block['subject'] = '';
+      $block['content'] = _photo_album_left_menu_year();
+    break;
+	case 'photo_left_menu':
+      $block['subject'] = '';
+      $block['content'] = _photo_left_menu_year();
+    break;
+  }
+  return $block;
+}
+function _photo_album_left_menu_year(){
+	
+	global $base_url;
+	$q = "SELECT alb.field_album_tid AS tid FROM field_data_field_album as alb, workflow_node AS wn WHERE alb.bundle ='photo_gallery' AND alb.entity_id = wn.nid  AND wn.sid = 3 GROUP BY alb.field_album_tid ";	
+	
+	$results = \Drupal::database()->query($q);
+	$str = '<h2 class="block-title">Album Wise</h2><ul>';
+	$i = 0;
+	$album = '';
+	foreach($results as $row) {
+		$term = \Drupal::entityManager()->getStorage("taxonomy_term")->load($row->tid);
+		$name = $term->name;
+		$str .= '<li><a href="'. $base_url.'/photo-gallery/album/'.$name.'" >'.$name.'</a></li>';
+	}
+	$str .= '</ul>'; 
+	
+	return $str;
+}
+
+function _photo_left_menu_year(){
+	 /*$q = "SELECT DATE_FORMAT(date.field_start_date_value, '%Y') AS YEAR FROM field_data_field_start_date AS DATE,workflow_node AS wn WHERE date.entity_id = wn.nid AND date.bundle ='photo_gallery' AND wn.sid = 3 GROUP BY DATE_FORMAT(date.field_start_date_value, '%Y') ORDER BY DATE_FORMAT(date.field_start_date_value, '%Y') DESC ";	*/ 
+	$q = "SELECT DATE_FORMAT(field_start_date_value, '%Y') as year FROM field_data_field_start_date GROUP BY DATE_FORMAT(field_start_date_value, '%Y') ORDER BY DATE_FORMAT(field_start_date_value, '%Y') DESC";	
+
+	$results = \Drupal::database()->query($q);
+	$str = '<h2 class="block-title">Year Wise</h2><ul>';
+	$arg_year = arg(1);
+	global $base_url;
+	$i = 0;
+	foreach($results as $result){
+		$class = '';
+		 $year = $result->year;
+		 if($arg_year == ''){
+		 	if($i == 0){
+			 	$class = 'class="active first"'; 
+			 }
+		 }elseif($year  == $arg_year){
+			if($i == 0){
+			 	$class = 'class="active first"'; 
+			 }else{
+				$class = 'class="active"'; 
+			}
+		 }else{
+		 	 if($i == 0){
+			 	$class = 'class="first"'; 
+			 }
+		 }
+		 $str .= '<li><a href="'. $base_url.'/photo-gallery/'.$year.'" '.$class.'>'.$year.'</a></li>';
+		 $i = 1;
+	}
+	 $str .= '</ul>';
+	return $str;
+}
+function cmf_utility_form_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id) {
+	global $base_url;
+	switch($form_id) {
+	// Field Proactive Title Disabled
+	
+	case 'proactive_disclosure_node_form':
+		for($i=0 ; $i<16 ; $i++) {
+			//$form['field_proactive_set']['und'][$i]['field_proactive_title']['und'][0]['value']['#disabled'] = TRUE;
+		}
+		break;
+		
+	case 'field_collection_item_form':
+		//$form['field_proactive_title']['und'][0]['value']['#disabled'] = TRUE;
+		break;
+	case 'search_form':
+		$form['basic']['keys']['#attributes']['placeholder'] = t( 'Search' );
+		$form['basic']['keys']['#title'] = t("");
+		//$form['basic']['submit']['#value'] = t("");
+		break;
+	case 'user_login':
+		//print_r($form);
+		$form['#attributes']['autocomplete'] = 'off';
+		$form['name']['#attributes']['autocomplete'] = 'off';
+		$form['pass']['#attributes']['autocomplete'] = 'off';
+		$form['links'] = array(
+	        array('#markup' => '<a href="'.$base_url.'/user/password/">Forgot your password?</a>'),
+	        '#weight' => 100,
+	    );
+		break;
+	}
+
+	if($form_id == 'webform_client_form_13'){		
+		$form['#validate'][] = "validation_webform";
+	}
+}
+function validation_webform($form, $form_state){	
+	if(cmf_utility_validate_field($form_state['values']['submitted']['name']) == 1){    
+		form_set_error('submitted[name]', t("Please enter valid name.")); 		
+	}
+}
+
+
+
+function cmf_utility_validate_field($text){  
+	$pattern = "/^[a-zA-Z ]+$/";
+	$str = trim($text);	
+	if(is_null($str) || $str == ""){
+		return FALSE;
+	}		
+	if(trim(preg_match($pattern, $str))){
+		return  0;
+	} else{
+		return 1;
+	}
+	
+}
+/* Hook menu alter **/
+
+function  cmf_utility_menu_block_tree_alter(&$tree, &$config) {
+	$arg = arg(0);
+	$get_menu_name =  $config['menu_name'];
+	if($arg == 'gallery') {
+		if ($get_menu_name == 'menu-left-menu') {
+			foreach ($tree as $top_id => $item) {
+				$parent_id_of_gallery = $item['link']['mlid'];
+				if ($parent_id_of_gallery == '1034') {
+					
+					$ls = array(
+					  'menu_name' => $get_menu_name,
+					  'link_title' => 'ddd',
+					  'link_path' => 'hhh',
+					  'plid' => $parent_id_of_gallery,
+					);
+					//$newpid = menu_link_save($ls);
+					//drupal_set_message('<pre>'.print_r($item,TRUE));
+				}
+			}
+		}
+	}
+}
+
+/*
+* Implements hook_menu 
+
+function cmf_utility_menu() {
+
+	//$album_wise_gallery = db_query("SELECT alb.field_album_tid AS tid FROM field_data_field_album as alb, workflow_node AS wn WHERE alb.bundle ='photo_gallery' AND alb.entity_id = wn.nid  AND wn.sid = 3 GROUP BY alb.field_album_tid ");	
+	
+	$album_wise_gallery = db_query("SELECT alb.field_album_tid AS tid FROM field_data_field_album as alb WHERE alb.bundle ='photo_gallery' GROUP BY alb.field_album_tid ");	
+	
+	foreach($album_wise_gallery as $row) {
+		$term = taxonomy_term_load($row->tid);
+		$name = $term->name;
+		$url = drupal_lookup_path('alias', 'taxonomy/term/'.$term->tid);
+		$items[$url] = array(
+		  'title' => $name ,       
+		  'access callback' => TRUE,
+		  'type' => MENU_NORMAL_ITEM,
+		  'menu_name' => 'menu-left-menu',
+		  'plid' => 1034,
+		);  
+	}
+	
+	/*$year_wise_gallery = db_query("SELECT DATE_FORMAT(d.field_start_date_value, '%Y') AS YEAR FROM field_data_field_start_date AS d,workflow_node AS wn WHERE d.entity_id = wn.nid AND d.bundle ='photo_gallery' AND wn.sid = 3 GROUP BY DATE_FORMAT(d.field_start_date_value, '%Y') ORDER BY DATE_FORMAT(d.field_start_date_value, '%Y') DESC ");
+	foreach($year_wise_gallery as $rows) {
+		$year = $rows->YEAR;
+		//drupal_set_message('<pre>'.print_r($rows,TRUE));
+		$items['gallery/yearwise/' . $year] = array(
+		  'title' => $year ,       
+		  'access callback' => TRUE,
+		  'type' => MENU_NORMAL_ITEM,
+		  'menu_name' => 'menu-left-menu',
+		  'plid' => 1034,
+		);  
+	}
+	
+  return $items;
+}*/
+
+/*
+* Implements of hook_views_pre_render
+*/
+function cmf_utility_views_pre_render(&$view) {
+
+	 foreach( $view->result as $result ){
+        if (property_exists( $result,'field_field_attached' )){
+            $i = 0;
+            foreach($result->field_field_attached as $res){
+				
+                $document_path = $result->field_field_attached ?
+                    ((array_key_exists('#markup',$result->field_field_attached[$i]['rendered'])) ? $result->field_field_attached[$i]['rendered']['#markup'] :'')
+                    :'';
+                $file_size = $result->field_field_attached ? $result->field_field_attached[$i]['raw']['filesize'] :'';
+                if (!empty($result->field_field_attached)) {
+                    $convert_size =format_size($file_size);
+                    if ($document_path !='') {
+                        $result->field_field_attached[$i]['rendered']['#markup'] = get_file_icon($document_path,$convert_size);
+                    }
+                }
+                $i++;
+            }
+        }
+    }
+}
+
+function get_file_icon($file_path,$convert_size,$file_title = NULL) {
+	
+	preg_match('/[a-zA-Z]+$/', $file_path, $match);
+	
+	switch(strtolower($match[0])) {
+		case "pdf":
+			$link = create_document_link_with_icon($convert_size,$file_path,'application-pdf.png',$match[0],$file_title);
+        break;
+		
+		case "doc":
+			$link = create_document_link_with_icon($convert_size,$file_path,'x-office-document.png',$match[0],$file_title);
+        break;
+		
+		case "xls":
+			$link = create_document_link_with_icon($convert_size,$file_path,'x-office-spreadsheet.png',$match[0],$file_title);
+        break;
+		
+		case "ppt":
+			$link = create_document_link_with_icon($convert_size,$file_path,'x-office-presentation.png',$match[0],$file_title);
+        break;
+		
+		case "txt":
+			$link = create_document_link_with_icon($convert_size,$file_path,'text-plain.png',$match[0],$file_title);
+        break;
+		
+		case "zip":
+			$link = create_document_link_with_icon($convert_size,$file_path,'text-plain.png',$match[0],$file_title);
+        break;
+		case "rar":
+			$link = create_document_link_with_icon($convert_size,$file_path,'text-plain.png',$match[0],$file_title);
+        break;
+		default:
+			$link = create_document_link_with_icon($convert_size,$file_path,'text-plain.png',$match[0],$file_title);
+        break;
+	}
+	return $link;
+}
+
+function create_document_link_with_icon($convert_size,$filepath,$icon_name,$alt = NUll,$file_title) {
+	global $base_path;
+	if($file_title == ''){
+		$file_title = t('Download');
+	}
+	$path = base_path().  drupal_get_path('module', 'cmf_utility');
+	// @FIXME
+// l() expects a Url object, created from a route name or external URI.
+// $document_path = l($file_title." ($convert_size) <img src='$path/icons/$icon_name' width='16' height='16' alt='$alt' border='0'/>", $filepath, array('attributes' => array('target' => '_blank'), 'html' => TRUE));
+
+	return $document_path;
+}
+
+function cmf_utility_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  
+	//$year_wise_gallery = db_query("SELECT DATE_FORMAT(d.field_start_date_value, '%Y') AS YEAR FROM field_data_field_start_date AS d,workflow_node AS wn WHERE d.entity_id = wn.nid AND d.bundle ='photo_gallery' AND wn.sid = 3 GROUP BY DATE_FORMAT(d.field_start_date_value, '%Y') ORDER BY DATE_FORMAT(d.field_start_date_value, '%Y') DESC ");
+	
+	$year_wise_gallery = \Drupal::database()->query("SELECT DATE_FORMAT(d.field_start_date_value, '%Y') AS YEAR FROM field_data_field_start_date AS d WHERE d.bundle ='photo_gallery' GROUP BY DATE_FORMAT(d.field_start_date_value, '%Y') ORDER BY DATE_FORMAT(d.field_start_date_value, '%Y') DESC ");
+
+	
+	$dateArray = array();
+	$a = '';
+	foreach($year_wise_gallery as $rows) {
+		$dateArray[$rows->YEAR] = $rows->YEAR;
+		$b = $rows->YEAR;
+		$a .= "$b:";
+	}
+
+	$new_min = $dateArray;
+	//drupal_set_message('<pre>'.print_r(arg(2),TRUE));
+    //$form['field_start_date_value']['value']['#date_year_range'] = "2015:2013:";
+}
+
+function _get_alias($url){
+	$db_query = \Drupal::database()->query("SELECT alias FROM url_alias WHERE source = '".$url."'");
+	$nid_row = $db_query->fetchAll();
+	return  $nid_row[0]->alias;
+}
+function cmf_utility_translate_link(){
+	global $base_url, $language, $user;
+	
+	$languages = language_list();
+	$new_path = $base_url;
+	foreach($languages as $key => $val){
+		if($language->prefix != $val->prefix){
+			$lan_str = $val->native;
+			$new_lan = $val->name;
+			if($val->prefix != ''){
+				$new_path .= "/".$val->prefix;				
+			}
+		}
+	}
+	$start = 1;
+	if($language->prefix == ''){
+		$start = 0;
+	}
+	
+	$url = request_path();
+	$url_break = explode('/', $url);
+	if($_GET['q'] != 'node'){
+		$pathArray = explode("/",$_GET['q']);
+		if($pathArray[0] == 'node'){
+			$results = \Drupal::database()->query("SELECT * FROM node WHERE nid = :nid", array(":nid" => $pathArray[1]));
+			$nid_row = $results->fetchAll();
+			if($nid_row[0]->tnid == 0){
+				for($i = $start; $i < (count($url_break) - 1); $i++){
+					$new_path.= "/".htmlentities($url_break[$i]);
+				}
+			}elseif($nid_row[0]->tnid != $pathArray[1]){
+				$new_path .= '/'._get_alias("node/".$nid_row[0]->tnid);
+			}else{
+				$results = \Drupal::database()->query("SELECT * FROM node WHERE  nid <> :nid AND tnid = :nid1", array(":nid" => $pathArray[1],":nid1" => $pathArray[1]));
+				if($results->rowCount() > 0){
+					$result = $results->fetchAll();
+					$new_path .= '/'._get_alias("node/".$result[0]->nid);
+				}else{
+					for($i =$start; $i < (count($url_break) - 1); $i++){
+						$new_path.= "/".htmlentities($url_break[$i]);
+					}
+				}
+			}
+		}elseif($pathArray[0] == 'taxonomy'){
+		$tid = trim($pathArray[2]);
+			$results = \Drupal::database()->query("SELECT * FROM taxonomy_term_data WHERE tid = :tid", array(":tid" => $tid));
+			$tid_row = $results->fetchAll();
+			if($tid_row[0]->language != 'und'){			
+				if($tid_row[0]->i18n_tsid != 0){
+					$res = \Drupal::database()->query("SELECT * FROM taxonomy_term_data WHERE i18n_tsid = :i18n AND tid <> :tid", array(":i18n" => $tid_row[0]->i18n_tsid, ":tid" => $tid));
+					$row = $res->fetchAll();
+					$new_path .= '/'._get_alias("taxonomy/term/".$row[0]->tid);
+				}else{
+					for($i =$start; $i < (count($url_break) - 1); $i++){
+						$new_path.= "/".htmlentities($url_break[$i]);
+					}
+				}
+			}else{
+				 for($i =$start; $i < (count($url_break)); $i++){
+					$new_path.= "/".htmlentities($url_break[$i]);
+				}
+			}
+		}else {
+		   for($i =$start; $i < (count($url_break)); $i++){
+				$new_path.= "/".htmlentities($url_break[$i]);
+			}
+			
+		}
+	}
+	$str = '<a target="_blank" href="'.$new_path.'" class="alink">'.$lan_str.'</a>';
+	return $str;	
+}
+/**
+ * @FIXME
+ * hook_menu_alter() is gone in Drupal 8. You will have to port its
+ * functionality manually. The are several mechanisms for this:
+ *
+ * To alter routes, you must implement a route subscriber class. An empty one
+ * has been generated for you in src/Routing/RouteSubscriber.php.
+ *
+ * To alter menu link definitions, see hook_menu_links_discovered_alter(). An
+ * empty implementation has been created at the end of this file.
+ *
+ * To alter local task definitions, see hook_menu_local_tasks_alter(). An
+ * empty implementation has been created for you at the end of this file.
+ *
+ * To alter local actions, see hook_menu_local_actions_alter(). An
+ * empty implementation has been created for you at the end of this file.
+ *
+ * Contextual links are altered during rendering only. See
+ * hook_contextual_links_view_alter(). An empty implementation has been
+ * created for you at the end of this file.
+ *
+ * @see https://www.drupal.org/node/2118147#alter
+ * @see https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Menu%21menu.api.php/function/hook_menu_links_discovered_alter/8
+ * @see https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Menu%21menu.api.php/function/hook_menu_local_tasks_alter/8
+ * @see https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Menu%21menu.api.php/function/hook_menu_local_actions_alter/8
+ * @see https://api.drupal.org/api/drupal/core%21modules%21contextual%21contextual.api.php/function/hook_contextual_links_view_alter/8
+ */
+function cmf_utility_menu_alter(&$item) {
+  // Hide the "Create new account" tab
+  //$item['user/register']['type'] = MENU_CALLBACK;
+  //$item['user/login']['type'] = MENU_CALLBACK;
+  $item['user/password']['type'] = MENU_CALLBACK;
+}
+
+
+
+/**
+ * @FIXME
+ * This implementation of hook_menu() cannot be automatically converted because
+ * it contains logic (i.e., branching statements, function calls, object
+ * instantiation, etc.) You will need to convert it manually. Sorry!
+ *
+ * For more information on how to convert hook_menu() to Drupal 8's new routing
+ * and linking systems, see https://api.drupal.org/api/drupal/core%21includes%21menu.inc/group/menu/8
+ */
+
+function cmf_utility_menu(){
+	$items['admin/config/development/cmf_feedback'] = array(
+		'title' => t('Provide Node id'),
+		'description' => t('Add "," in between two node id'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('cmf_utility_form'),
+        'access arguments' => array('access administration pages'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+  	return $items;	
+}
+
+// Function for clearing cache for specific page
+function cmf_utility_form()
+{
+	$form = array();
+	$nids = '';
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// if(variable_get('feedback_form_nid')){
+// 		$nids = variable_get('feedback_form_nid');
+// 	}
+
+	
+	$form['feedback_nids']= array(
+		'#type' => 'textarea',
+		'#title' => t('Enter feedback node ids'),
+		'#cols' => 70,
+		'#rows' => 4,
+		'#required' => TRUE,
+		'#value' => $nids,
+		'#description' => t('Enter , inbetween two node id.'),
+  	);
+	
+	// submit buton
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => t('Submit'),
+	);
+	return $form;
+}
+function cmf_utility_form_submit($form, &$form_state){
+	
+	$values = $form_state['input'];
+	$node_ids = $values['feedback_nids'];
+	// @FIXME
+// // @FIXME
+// // This looks like another module's variable. You'll need to rewrite this call
+// // to ensure that it uses the correct configuration object.
+// variable_set('feedback_form_nid', $node_ids);
+  
+	\Drupal::messenger()->addMessage(t('Successfully Save.'));
+}

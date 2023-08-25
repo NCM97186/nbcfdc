@@ -1,0 +1,3 @@
+.cmfgs-input {padding: 7px;color: #000;border: 1px solid #b4b4b4;}
+.cmfgs-input:focus {border-color: #2160E1;}
+.cmfgs-submit{border: none;padding:7px 15px;background: #f26522;color: #fff;text-transform: uppercase;cursor: pointer;}

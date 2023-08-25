@@ -1,0 +1,19 @@
+{
+  "name": "drupal/languages_dropdown",
+  "description": "Provides a Languages Dropdown button to switch between available languages. Uses Bootstrap Languages library.",
+  "type": "drupal-module",
+  "minimum-stability": "dev",
+  "homepage": "https://www.drupal.org/project/languages_dropdown",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Lilian Catanoi (liliancatanoi90)",
+      "homepage": "https://www.drupal.org/u/liliancatanoi90",
+      "role": "Contributor"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/languages_dropdown",
+    "source": "https://git.drupal.org/project/languages_dropdown.git"
+  }
+}

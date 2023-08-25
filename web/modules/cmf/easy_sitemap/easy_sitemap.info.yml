@@ -1,0 +1,7 @@
+name: Easy Sitemap
+description: To display the sitemap 
+type: module
+version: 1.0
+core: 8.x
+package: MHA CUSTOM
+core_version_requirement: ^8 || ^9 || ^10

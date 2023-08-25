@@ -1,0 +1,7 @@
+simple_metakey.settings:
+  path: '/admin/config/cmf-module/simple_metakey'
+  defaults:
+    _form: '\Drupal\simple_metakey\Form\SimpleMetakeyForm'
+    _title: 'Simple Metakey settings'
+  requirements:
+    _permission: 'administer site configuration'

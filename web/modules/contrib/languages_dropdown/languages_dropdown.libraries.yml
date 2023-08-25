@@ -1,0 +1,43 @@
+main:
+  version: VERSION
+  css:
+    theme:
+      css/languages-dropdown.css: {}
+  dependencies:
+    - languages_dropdown/bootstrap-lang
+
+bootstrap-lang:
+  remote: https://github.com/usrz/bootstrap-languages
+  version: VERSION
+  license:
+    name: apache
+    url: https://github.com/usrz/bootstrap-languages/blob/master/LICENSE.md
+    gpl-compatible: false
+  css:
+    theme:
+      /libraries/bootstrap-languages/languages.css: { minified: false }
+
+dependency-js:
+  remote: https://github.com/FezVrasta/popper.js
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js: { type: external, minified: true }
+    https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js: { type: external, minified: true }
+
+dependency-css:
+  remote: https://github.com/FezVrasta/popper.js
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js: { type: external, minified: true }
+    https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js: { type: external, minified: true }
+  css:
+    theme:
+      https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css: { type: external, minified: true }

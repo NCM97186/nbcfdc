@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drupal Module Upgrader analysis report</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,700,600' rel='stylesheet' type='text/css' />
+    <style type="text/css">
+    <!--
+
+body {
+  width: 80%;
+  color: #343434;
+  margin: 1em auto;
+  font-family: 'Open Sans', Verdana, sans-serif;
+}
+
+details {
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 2em;
+  display: list-item;
+  list-style: none;
+}
+
+details summary {
+  padding: 1em;
+  margin-bottom: 1em;
+  display: list-item;
+  cursor: pointer;
+}
+
+details.error summary {
+  background-color: #ffd5d5;
+}
+
+details.warning summary {
+  background-color: #fff3bb;
+}
+
+a {
+  color: #095cb1;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+aside {
+  font-style: italic;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+.group {
+  border: 1px solid #ececec;
+  padding: 1em;
+  display: block;
+}
+
+.group > summary {
+  padding: 0;
+  color: #c8c8c8;
+  margin-bottom: 0;;
+  font-weight: bold;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: list-item;
+}
+
+.group[open] > summary {
+  margin-bottom: 1em;
+}
+
+.group > details:last-child {
+  margin-bottom: 0;
+}
+
+    -->
+    </style>
+  </head>
+  <body>
+    <h1>Drupal Module Upgrader analysis report</h1>
+      <details open="true" class="group">
+      <summary></summary>
+          <details class="error">
+      <summary>Blocks are now plugins in the <code>MODULE\Plugin\Block</code> namespace.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1880620">Blocks are now plugins</a></li>
+                <li><a target="_blank" href="https://api.drupal.org/api/drupal/core%21modules%21block%21block.api.php/group/block_api/8">Drupal 8 Block API</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 184</li>
+            </ul>
+                  <aside>Flagged by _flag_hook:block_info</aside>    </details>
+    <details class="error">
+      <summary>Blocks are now plugins in the <code>MODULE\Plugin\Block</code> namespace.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1880620">Blocks are now plugins</a></li>
+                <li><a target="_blank" href="https://api.drupal.org/api/drupal/core%21modules%21block%21block.api.php/group/block_api/8">Drupal 8 Block API</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 207</li>
+            </ul>
+                  <aside>Flagged by _flag_hook:block_view</aside>    </details>
+    <details class="error">
+      <summary><code>hook_menu()</code> has been removed from Drupal 8.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1800686">All functionality of <code>hook_menu()</code> replaced</a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2177901">Dynamic routes are now defined in <code>MODULE.routing.yml</code></a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2119699">Page callbacks have been converted to controller classes</a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2089605">Route naming convention</a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2165243">Contextual links are now plugins defined in <code>MODULE.links.contextual.yml</code></a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2007444">Local actions are now plugins defined in <code>MODULE.links.action.yml</code></a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2044515">Local tasks and now plugins defined in <code>MODULE.links.task.yml</code></a></li>
+                <li><a target="_blank" href="https://www.drupal.org/node/2228089">Menu links are now defined in <code>MODULE.links.menu.yml</code></a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 587</li>
+            </ul>
+                  <aside>Flagged by _flag_hook:menu</aside>    </details>
+    <details class="error">
+      <summary><code>hook_menu_alter()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2118147#alter">Replacements for <code>hook_menu_alter()</code></a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 578</li>
+            </ul>
+                  <aside>Flagged by _flag_hook:menu_alter</aside>    </details>
+    <details class="error">
+      <summary><code>taxonomy_term_load()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2266845">Entities are now classed objects implementing <code>EntityInterface</code></a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 102</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 246</li>
+            </ul>
+                  <aside>Flagged by _function_call:taxonomy_term_load</aside>    </details>
+    <details class="error">
+      <summary><code>form_set_error()</code> is now a method of <code>FormStateInterface</code>.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2121003">Form functions moved into <code>FormStateInterface</code></a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 325</li>
+            </ul>
+                  <aside>Flagged by _function_call:form_set_error</aside>    </details>
+    <details class="error">
+      <summary><code>l()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2346779"><code>l()</code> replaced by URL generation API</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 477</li>
+            </ul>
+                  <aside>Flagged by _function_call:l</aside>    </details>
+    <details class="error">
+      <summary><code>taxonomy_get_tree()</code> is now a method of the taxonomy term storage controller.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2328205">Certain Taxonomy API functions have moved into <code>TermStorage</code> class</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 20</li>
+            </ul>
+                  <aside>Flagged by _function_call:taxonomy_get_tree</aside>    </details>
+    <details class="error">
+      <summary><code>mime_header_encode()</code> has been moved into the Unicode utility class.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1992584"><code>mime_header_encode()</code> moved into Unicode component</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 71</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 76</li>
+            </ul>
+                  <aside>Flagged by _function_call:mime_header_encode</aside>    </details>
+    <details class="error">
+      <summary><code>variable_get()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2183531">The Variable API has been removed</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 73</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 95</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 96</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 105</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 106</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 604</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 605</li>
+            </ul>
+                  <aside>Flagged by _function_call:variable_get</aside>    </details>
+    <details class="error">
+      <summary><code>variable_set()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2183531">The Variable API has been removed</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 100</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 629</li>
+            </ul>
+                  <aside>Flagged by _function_call:variable_set</aside>    </details>
+    <details class="error">
+      <summary><code>drupal_set_message()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2774931"><code>drupal_set_message()</code> moved into stream wrapper manager service.</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 630</li>
+            </ul>
+                  <aside>Flagged by _function_call:drupal_set_message</aside>    </details>
+    <details class="error">
+      <summary><code>db_query()</code> has been removed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2993033"><code>db_query()</code> is deprecated.</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 29</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 241</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 259</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 485</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 502</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 530</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 539</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 551</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 555</li>
+            </ul>
+                  <aside>Flagged by _function_call:db_query</aside>    </details>
+    <details class="warning">
+      <summary>Many common functions, shared variables, and constants have been renamed.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2324935">The global theme variables have been replaced by an ActiveTheme object</a></li>
+              </ul>
+      
+                      </details>
+    <details class="error">
+      <summary>The signature of hook_form_alter() has changed in Drupal 8.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Form%21form.api.php/function/hook_form_alter/8"><code>hook_form_alter()</code> documentation</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 288</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 481</li>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility\cmf_utility.module, line 481</li>
+            </ul>
+                  <aside>Flagged by hook_form_alter</aside>    </details>
+    <details class="error">
+      <summary>Module info files' <code>core</code> key must have a value of <code>8.x</code>.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1935708"><code>.info</code> files are now <code>.info.yml</code> files</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility/cmf_utility.info</li>
+            </ul>
+                  <aside>Flagged by info</aside>    </details>
+    <details class="error">
+      <summary>Info files must contain a <code>type</code> key.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/1935708#type"><code>.info</code> files are now <code>.info.yml</code> files</a></li>
+              </ul>
+      
+            <h5>Files Affected</h5>
+      <ul>
+              <li>C:\xampp\htdocs\mhatest\web/modules/cmf_utility/cmf_utility.info</li>
+            </ul>
+                  <aside>Flagged by info</aside>    </details>
+    <details class="error">
+      <summary>Classes must be PSR-4 compliant.</summary>
+
+      
+            <h5>Documentation</h5>
+      <ul>
+                <li><a target="_blank" href="https://www.drupal.org/node/2246699">PSR-4 compatible class loader in Drupal core</a></li>
+              </ul>
+      
+                      </details>
+
+    </details>
+    </body>
+</html>

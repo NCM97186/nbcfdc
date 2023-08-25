@@ -1,0 +1,15 @@
+name: IP Address Manager
+type: module
+description: 'Manage user IP addresses.'
+package: Core
+core_version_requirement: ^8.8 || ^9 || ^10
+
+dependencies:
+  - drupal:user
+
+#files[] = views/handlers/ip_views_handler_field_user_count.inc
+
+# Information added by Drupal.org packaging script on 2022-12-14
+version: '3.1.1'
+project: 'ip'
+datestamp: 1671027959

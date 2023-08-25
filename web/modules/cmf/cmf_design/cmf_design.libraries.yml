@@ -1,0 +1,24 @@
+design:
+  version: 1.x
+  css:
+    theme:
+        css/base.css: {}
+        css/base-responsive.css: {}
+        css/grid.css: {}
+        css/font.css: {}
+        css/font-awesome.min.css: {}
+        css/flexslider.css: {}
+        css/print.css: {}        
+  js:
+    js/jquery-accessibleMegaMenu.js: {}
+    js/megamenu.js: {}
+    js/jquery.flexslider.js: {}
+    js/framework.js: {}
+    js/font-size.js: {}
+    js/swithcer.js: {}
+    js/ma5gallery.js: {}
+    js/easyResponsiveTabs.js: {}    
+    js/cmf_design.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

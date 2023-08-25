@@ -1,0 +1,13 @@
+services:
+  counter.device_detector:
+    class: 'DeviceDetector\DeviceDetector'
+
+  counter.counter_utility:
+    class: '\Drupal\counter\CounterUtility'
+    arguments: ['@database', '@request_stack', '@counter.device_detector']
+
+  counter.counter_event_subscriber:
+    class: '\Drupal\counter\EventSubscriber\CounterEventsSubscriber'
+    arguments: ['@config.factory', '@current_user', '@counter.counter_utility']
+    tags:
+      - { name: 'event_subscriber' }

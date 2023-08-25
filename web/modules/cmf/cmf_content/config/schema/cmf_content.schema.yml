@@ -1,0 +1,35 @@
+# Schema for the configuration files.
+cmf_content.settings:
+  type: config_object
+  label: 'CMF Content settings'
+  mapping:
+    header_site_name:
+      label: 'Enter Sitename for Website'
+      type: label
+    header_site_slogan:
+      label: 'Enter Sitename Slogon for Website'
+      type: label
+    header_goi_text:
+      label: 'Enter Header Title For Govt'
+      type: label
+    header_goi_text_url:
+      label: 'Enter Header URL For Govt'
+      type: label
+    header_sitename:
+      label: 'Enter Header Title for Minister'
+      type: label
+    header_sitename_url:
+      label: 'Enter Header URL for Minister'
+      type: label
+    search_site_name:
+      label: 'Enter Sitename for Search Target URL'
+      type: label
+    footer_sitename:
+      label: 'Enter Sitename for Footer Section'
+      type: label
+    external_message:
+      label: 'Enter External Link Messages'
+      type: label
+    language:
+      type: string
+      label: 'Language code'

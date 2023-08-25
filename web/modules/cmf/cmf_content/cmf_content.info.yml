@@ -1,0 +1,7 @@
+name: 'CMF Content'
+type: module
+description: 'Add/Edit/Delete Content for header, footer and social links.'
+core: 8.x
+version: VERSION
+package: CMF
+core_version_requirement: ^8 || ^9

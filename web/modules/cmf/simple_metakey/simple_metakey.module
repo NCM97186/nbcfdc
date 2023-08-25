@@ -1,0 +1,17 @@
+<?php
+/*
+ * @file
+ * code for simple metakey module
+*/
+use Drupal\Core\Routing\RouteMatchInterface;
+/**
+ * Implements hook_help().
+ */
+
+function metakey_preprocess_page(array &$variables) {
+	$settings = \Drupal::config('simple_metakey.settings');
+	/* Header Content */
+	$variables['metakey'] = $settings->get('metakey');
+	$variables['metakey_desc'] = $settings->get('metakey_desc');
+}
+

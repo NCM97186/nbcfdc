@@ -1,0 +1,9 @@
+cmf_content.settings:
+  route_name: cmf_content.settings
+  title: CMF Site Settings
+  base_route: cmf_content.settings
+  
+cmf_content.deletesection:
+  route_name: cmf_content.deletesection
+  title: Delete Section Data
+  base_route: cmf_content.deletesection

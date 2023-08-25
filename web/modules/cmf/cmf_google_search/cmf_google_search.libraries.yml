@@ -1,0 +1,10 @@
+search:
+  version: 1.x
+  css:
+    theme:
+        css/cmf_google_search.css: {}
+  js:
+    js/cmf_google_search.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

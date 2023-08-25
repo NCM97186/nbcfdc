@@ -1,0 +1,17 @@
+id: filemime_settings
+label: File MIME settings
+migration_tags:
+  - Drupal 7
+  - Configuration
+source:
+  plugin: variable
+  variables:
+    - filemime_file
+    - filemime_types
+  source_module: filemime
+process:
+  file: filemime_file
+  types: filemime_types
+destination:
+  plugin: config
+  config_name: filemime.settings
